@@ -32,21 +32,22 @@ Idle
 
 - Restores 1 ATK/DEF, up to player's max ATK/DEF
     */
-
+/*
     void Start()//calls the StartCombatTurn method.
     {
         StartCombatTurn();
         turnStarted = true;
-    }
+    }*/
 
     void Update()//calls the CountDown method.
     {
-        CountDown();
+        if(turnStarted) { CountDown(); }
+        
     }
 
     void CountDown()//ticks away at the timer, and calls the Resolve Turn when timer runs out.
     {
-        if (turnStarted == true && timer >= 0)
+        if (timer >= 0)
         {
             timer -= Time.deltaTime;
             timerSlider.value = timer;
@@ -63,10 +64,11 @@ Idle
     void StartCombatTurn()//sets the start of the combat turn
     {
         //tick off next turn
+        turnStarted = false;
         combatTurn++;
         roundTxt.text = "Turn: " + combatTurn;
         //start timer
-        StartCombatTimer();
+        //StartCombatTimer();
         //resets choices like Defend etc
         p1Choice = 0; p1ChoiceTxt.text = "You're currently idling.";
         p1.GetComponent<RPG_Stats>().defend = false;
@@ -167,32 +169,6 @@ Idle
         if (p1.GetComponent<RPG_Stats>().dead && p2.GetComponent<RPG_Stats>().dead) { ItsADraw(); }
     }
 
-    void ItsADraw()
-    {
-        resultTxt.text = "Both of you died. It's a dead draw.";
-    }
-
-    void YouLose()//p1 has died and therefore loses the battle
-    {
-        resultTxt.text = "You died. And therefore you lost.";
-        //turnStarted = false; 
-        EndMatch();
-    }
-
-    void YouWin()//p2 has died and therefore p1 wins the battle
-    {
-        resultTxt.text = "You have slain your foe! You win!";
-       // turnStarted = false;
-        EndMatch();
-    }
-
-    void EndMatch()//ends the battle, possibly loads in another scene?
-    {
-
-        turnStarted = false;
-        Debug.Log(turnStarted);
-    }
-
     void CheckP1Choice()
     {
         switch (p1Choice)//checks the player's choice
@@ -254,6 +230,8 @@ Idle
         p1ChoiceTxt.text = "You've chosen to Defend.";
         //Resolve();
         //calls p1 atk stat, calls p2.Ow method with p1 atk stat.
+
+        StartCombatTimer();
     }
 
     public void Option2()//gets called by button that covers the other half of screen
@@ -263,13 +241,39 @@ Idle
         p1ChoiceTxt.text = "You've chosen to Attack.";
         //Resolve();
         //calls p1 def stat
+
+        StartCombatTimer();
     }
 
     void StartCombatTimer()//says that the turn has started and sets the timer to 7 seconds. 
-    {
-        
-        
+    {               
         timer = timerTime;
+        turnStarted = true;
+    }
+    void ItsADraw()
+    {
+        resultTxt.text = "Both of you died. It's a dead draw.";
+        EndMatch();
     }
 
+    void YouLose()//p1 has died and therefore loses the battle
+    {
+        resultTxt.text = "You died. And therefore you lost.";
+        //turnStarted = false; 
+        EndMatch();
+    }
+
+    void YouWin()//p2 has died and therefore p1 wins the battle
+    {
+        resultTxt.text = "You have slain your foe! You win!";
+       // turnStarted = false;
+        EndMatch();
+    }
+
+    void EndMatch()//ends the battle, possibly loads in another scene?
+    {
+
+        turnStarted = false;
+        Debug.Log(turnStarted);
+    }
 }
