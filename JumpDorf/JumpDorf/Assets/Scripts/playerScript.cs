@@ -36,17 +36,17 @@ public class playerScript : MonoBehaviour {
         }
     }
 
-    void OnCollisionEnter(Collision colin)
+    void OnCollisionEnter(Collision col)
     {
-        Debug.Log("You've just touched: " + colin.gameObject.tag);
-        if (colin.gameObject.tag == "Head")
+        Debug.Log("You've just touched: " + col.gameObject.tag);
+        if (col.gameObject.tag == "Head")
         {
             Jump();
         }
-        else if (colin.gameObject.tag == "Sharp")
+        else if (col.gameObject.tag == "Sharp")
         {
             living = false;
-            Jump();
+            Jump();        
         }
     }
 
