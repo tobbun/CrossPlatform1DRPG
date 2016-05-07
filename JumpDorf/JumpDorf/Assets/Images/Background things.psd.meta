@@ -1,10 +1,11 @@
 fileFormatVersion: 2
 guid: 9d2cce91336659a4fb4ddbb76fb879bb
-timeCreated: 1462527197
+timeCreated: 1462648241
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
     21300000: Background things_0
+    21300002: Background things_1
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
@@ -54,18 +55,33 @@ TextureImporter:
     - name: Background things_0
       rect:
         serializedVersion: 2
-        x: 38
-        y: 230
-        width: 589
-        height: 312
+        x: 56
+        y: 258
+        width: 558
+        height: 286
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline:
-      - - {x: -294.5, y: 156}
-        - {x: -294.5, y: -156}
-        - {x: 294.5, y: -156}
-        - {x: 294.5, y: 156}
+      - - {x: -279, y: 143}
+        - {x: -279, y: -143}
+        - {x: 279, y: -143}
+        - {x: 279, y: 143}
+    - name: Background things_1
+      rect:
+        serializedVersion: 2
+        x: 56
+        y: 374
+        width: 558
+        height: 170
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -279, y: 85}
+        - {x: -279, y: -85}
+        - {x: 279, y: -85}
+        - {x: 279, y: 85}
     outline: []
   spritePackingTag: 
   userData: 

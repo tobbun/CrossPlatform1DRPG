@@ -36,7 +36,7 @@ public class playerScript : MonoBehaviour {
         }
     }
 
-    void OnCollisionEnter(Collision col)
+    void OnCollisionEnter2D(Collision2D col)
     {
         Debug.Log("You've just touched: " + col.gameObject.tag);
         if (col.gameObject.tag == "Head")
