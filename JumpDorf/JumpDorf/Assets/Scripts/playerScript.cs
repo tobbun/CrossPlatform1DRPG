@@ -10,6 +10,8 @@ public class playerScript : MonoBehaviour {
     public bool freeJump;
     public bool living = true;
     Rigidbody2D rb;
+    public Transform steeringPoint;
+    Vector2 mousePosition;
 
 	// adds rigidbody and spriterenderer, 
 	void Start () {
@@ -18,11 +20,11 @@ public class playerScript : MonoBehaviour {
         rb.velocity = new Vector2();
 	}
 	
-	
 	void FixedUpdate () {
         currentYSpeed = rb.velocity.y;
         anim.SetFloat("Y Speed", currentYSpeed);
-        
+        SteerWithKeys();
+        SteerWithPoint();
         if (freeJump == true){
             YouCanJumpInTheAirNow();
         }
@@ -46,6 +48,7 @@ public class playerScript : MonoBehaviour {
         else if (col.gameObject.tag == "Sharp")
         {
             living = false;
+            spr.color = new Color(255, 0, 0);
             Jump();        
         }
     }
@@ -54,4 +57,25 @@ public class playerScript : MonoBehaviour {
     {
         rb.velocity = new Vector2(0, 10);
     }
+
+    void SteerWithKeys()
+    {
+        rb.velocity = new Vector2(steeringSpeed * Input.GetAxis("Horizontal"), currentYSpeed);
+    }
+
+    void SteerWithPoint()
+    {
+        mousePosition = Input.mousePosition;
+        mousePosition = Camera.main.ScreenToWorldPoint(mousePosition);
+        steeringPoint.position = mousePosition;
+        //Debug.Log("Mouse is at: "+Input.mousePosition+". And Steering Point is at: "+ steeringPoint.position);
+        float dis = Vector2.Distance(new Vector2(gameObject.transform.position.x, gameObject.transform.position.y),
+            new Vector2(steeringPoint.position.x, steeringPoint.position.y));
+        //Debug.Log(""+ dist);
+        rb.velocity = new Vector2(steeringPoint.position.x - gameObject.transform.position.x, currentYSpeed);
+
+
+    }
+
+    
 }
