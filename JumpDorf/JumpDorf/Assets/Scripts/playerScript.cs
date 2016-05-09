@@ -28,7 +28,7 @@ public class playerScript : MonoBehaviour {
         if (freeJump == true){
             YouCanJumpInTheAirNow();
         }
-
+        EndStep();
 	}
 
     void YouCanJumpInTheAirNow()
@@ -73,9 +73,20 @@ public class playerScript : MonoBehaviour {
             new Vector2(steeringPoint.position.x, steeringPoint.position.y));
         //Debug.Log(""+ dist);
         rb.velocity = new Vector2(steeringPoint.position.x - gameObject.transform.position.x, currentYSpeed);
-
+        if (rb.velocity.x <= 0)
+        {
+            spr.flipX = true;
+        }
+        else { spr.flipX = false; }
 
     }
 
-    
+    void EndStep()
+    {
+        if (living == false || gameObject.transform.position.y <= 0) {
+
+            Application.LoadLevel("test");
+        
+        }
+    }
 }
