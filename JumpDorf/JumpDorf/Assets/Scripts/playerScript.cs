@@ -23,7 +23,7 @@ public class playerScript : MonoBehaviour {
 	void FixedUpdate () {
         currentYSpeed = rb.velocity.y;
         anim.SetFloat("Y Speed", currentYSpeed);
-        SteerWithKeys();
+        //SteerWithKeys();
         SteerWithPoint();
         if (freeJump == true){
             YouCanJumpInTheAirNow();
@@ -65,7 +65,11 @@ public class playerScript : MonoBehaviour {
 
     void SteerWithPoint()
     {
-        mousePosition = Input.mousePosition;
+        if(Application.platform == RuntimePlatform.Android) { mousePosition = Input.GetTouch(1).position; }
+        if(Application.platform == RuntimePlatform.WebGLPlayer||Application.platform == RuntimePlatform.WindowsEditor) {
+            mousePosition = Input.mousePosition;
+        }
+        
         mousePosition = Camera.main.ScreenToWorldPoint(mousePosition);
         steeringPoint.position = mousePosition;
         //Debug.Log("Mouse is at: "+Input.mousePosition+". And Steering Point is at: "+ steeringPoint.position);
