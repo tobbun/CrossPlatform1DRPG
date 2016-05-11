@@ -55,7 +55,7 @@ public class playerScript : MonoBehaviour {
 
     void Jump()
     {
-        rb.velocity = new Vector2(0, 10);
+        rb.velocity = new Vector2(0, jumpSpeed);
     }
 
     void SteerWithKeys()
